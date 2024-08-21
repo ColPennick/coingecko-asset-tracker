@@ -22,6 +22,7 @@ namespace CoinGecko_Asset_Tracker
         private static readonly HttpClient client = new HttpClient();
         private GridViewColumnHeader _lastHeaderClicked = null;
         private ListSortDirection _lastDirection = ListSortDirection.Ascending;
+        private List<OverviewCoin> _allOverviewCoins;
 
         public MainWindow()
         {
@@ -92,6 +93,55 @@ namespace CoinGecko_Asset_Tracker
             dataView.Refresh();
         }
 
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ApplySearchFilter();
+        }
+
+
+        /// <summary>
+        /// Handles the selection changed event of the search criteria combo box to apply the search filter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchCriteriaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplySearchFilter();
+        }
+
+        /// <summary>
+        /// Applies the search filter to the overview coins list based on the selected search criteria and search text.
+        /// </summary>
+        private void ApplySearchFilter()
+        {
+            if (SearchCriteriaComboBox == null || SearchTextBox == null || OverviewCoinsListBox == null || _allOverviewCoins == null)
+            {
+                return;
+            }
+
+            string searchCriteria = (SearchCriteriaComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string searchText = SearchTextBox.Text.ToLower();
+
+            var filteredCoins = _allOverviewCoins.Where(coin =>
+            {
+                switch (searchCriteria)
+                {
+                    case "ID":
+                        return coin.Id.ToLower().Contains(searchText);
+                    case "Symbol":
+                        return coin.Symbol.ToLower().Contains(searchText);
+                    case "Name":
+                        return coin.Name.ToLower().Contains(searchText);
+                    default:
+                        return false;
+                }
+            }).ToList();
+
+            OverviewCoinsListBox.ItemsSource = filteredCoins;
+        }
+
+
+
         /// <summary>
         /// Updates the timestamp in the status bar.
         /// </summary>
@@ -105,15 +155,15 @@ namespace CoinGecko_Asset_Tracker
         /// </summary>
         private async void LoadOverviewCoins()
         {
-            var overviewCoins = await GetOverviewCoinsAsync();
-            OverviewCoinsListBox.ItemsSource = overviewCoins;
+            _allOverviewCoins = await GetOverviewCoinsAsync();
+            OverviewCoinsListBox.ItemsSource = _allOverviewCoins;
             UpdateTimestamp();
         }
 
 
         private async Task<List<OverviewCoin>> GetOverviewCoinsAsync()
         {
-            var response = await client.GetStringAsync("https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=10&page=1&sparkline=true");
+            var response = await client.GetStringAsync("https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=250&page=1&sparkline=true");
             var overviewCoins = JsonConvert.DeserializeObject<List<OverviewCoin>>(response);
             return overviewCoins;
         }

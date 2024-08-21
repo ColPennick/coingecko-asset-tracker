@@ -9,7 +9,7 @@
         Icon="pack://application:,,,/Resources/Images/favicon.ico"
         Background="Transparent" Opacity="1"
         MouseDown="Window_MouseDown">
-    
+
     <!-- Window resources definition -->
     <Window.Resources>
         <Style x:Key="SortableHeaderStyle" TargetType="GridViewColumnHeader">
@@ -48,18 +48,19 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
-                
+
                 <!-- Content of overview tab-->
                 <TabItem Header="Übersicht">
                     <Canvas>
-                        <Label x:Name="labelCoinname" Canvas.Left="7" Canvas.Top="64" Content="Name" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="Bitte angeben..." Canvas.Left="84" Canvas.Top="68" Width="120"/>
+                        <!-- Searchmask ComboBox and search textfield -->
+                        <ComboBox x:Name="SearchCriteriaComboBox" Width="120" VerticalAlignment="Top" Canvas.Left="68" Canvas.Top="93" SelectionChanged="SearchCriteriaComboBox_SelectionChanged">
+                            <ComboBoxItem Content="ID" IsSelected="True"/>
+                            <ComboBoxItem Content="Symbol"/>
+                            <ComboBoxItem Content="Name"/>
+                        </ComboBox>
 
-                        <Label x:Name="labelCoinSymbol" Canvas.Left="7" Canvas.Top="94" Content="Symbol" Foreground="White"/>
-                        <TextBox TextWrapping="Wrap" Text="Bitte angeben..." Canvas.Left="84" Canvas.Top="98" Width="120"/>
+                        <TextBox x:Name="SearchTextBox" Width="200" VerticalAlignment="Top" HorizontalAlignment="Center" Canvas.Left="198" Canvas.Top="93" TextChanged="SearchTextBox_TextChanged" Height="22"/>
 
-                        <Label x:Name="labelCoinCurrency" Canvas.Left="258" Canvas.Top="64" Content="Währung" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <ComboBox Canvas.Left="335" Canvas.Top="68" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <!-- ListBox containing coinlist -->
                         <ListBox x:Name="OverviewCoinsListBox" Canvas.Left="66" Canvas.Top="142" Height="327" Width="623" Opacity="0.85" Background="#FF514256" BorderBrush="#FFD4F266" FontSize="16"
          ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -93,7 +94,7 @@
                                         <TextBlock Text="{Binding Name}" Canvas.Left="60" Canvas.Top="5" Foreground="White"/>
                                         <TextBlock Text="{Binding Symbol}" Canvas.Left="60" Canvas.Top="25" Foreground="White"/>
                                         <TextBlock Text="{Binding PriceBtc, StringFormat={}{0:F8}, ConverterCulture=de-DE}" Canvas.Left="200" Canvas.Top="25" Foreground="White"/>
-                                        
+
                                     </Canvas>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
