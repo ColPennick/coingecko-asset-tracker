@@ -138,8 +138,16 @@ namespace CoinGecko_Asset_Tracker
             }).ToList();
 
             OverviewCoinsListBox.ItemsSource = filteredCoins;
+            UpdateOverviewCount();
         }
 
+        /// <summary>
+        /// Helper method to update the count of overview coins in the status bar.
+        /// </summary>
+        private void UpdateOverviewCount()
+        {
+            OverviewCountTextBlock.Text = $"{OverviewCoinsListBox.Items.Count} Einräge";
+        }
 
 
         /// <summary>
@@ -158,6 +166,7 @@ namespace CoinGecko_Asset_Tracker
             _allOverviewCoins = await GetOverviewCoinsAsync();
             OverviewCoinsListBox.ItemsSource = _allOverviewCoins;
             UpdateTimestamp();
+            UpdateOverviewCount();
         }
 
 

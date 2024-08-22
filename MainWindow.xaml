@@ -77,6 +77,10 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
+                        <!-- ListBox entry count -->
+                        <TextBlock x:Name="OverviewCountTextBlock" Text="000 Einträge" Canvas.Left="634" Canvas.Top="474" FontSize="10" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+
                     </Canvas>
                 </TabItem>
 
@@ -84,8 +88,8 @@
                 <TabItem Header="Trending">
                     <Canvas>
                         <CheckBox x:Name="AutoUpdateCheckBox" Content="Auto Update" Foreground="White" Checked="AutoUpdateCheckBox_Checked" Unchecked="AutoUpdateCheckBox_Unchecked" Canvas.Left="242" Canvas.Top="38"/>
-                        <TextBox x:Name="UpdateIntervalTextBox" Width="42" Text="5" Canvas.Left="355" Canvas.Top="38" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBlock x:Name="LastUpdateTextBlock" Canvas.Left="506" Canvas.Top="37" Foreground="White" FontSize="14"/>
+                        <TextBox x:Name="UpdateIntervalTextBox" Width="42" Text="10" Canvas.Left="355" Canvas.Top="38" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="LastUpdateTextBlock" Text="Aktualisiert: DD.MM.YYYY HH:MM:SS" Canvas.Left="506" Canvas.Top="37" Foreground="White" FontSize="14"/>
                         <ListBox x:Name="TrendingCoinsListBox" Canvas.Left="74" Canvas.Top="77" Height="327" Width="623" Opacity="0.85" Background="#FF514256" BorderBrush="#FFD4F266" FontSize="16" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -94,7 +98,6 @@
                                         <TextBlock Text="{Binding Name}" Canvas.Left="60" Canvas.Top="5" Foreground="White"/>
                                         <TextBlock Text="{Binding Symbol}" Canvas.Left="60" Canvas.Top="25" Foreground="White"/>
                                         <TextBlock Text="{Binding PriceBtc, StringFormat={}{0:F8}, ConverterCulture=de-DE}" Canvas.Left="200" Canvas.Top="25" Foreground="White"/>
-
                                     </Canvas>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -115,6 +118,7 @@
                     <TextBox TextWrapping="Wrap" IsReadOnly="True" Background="#0F172A" Foreground="White" BorderBrush="Transparent" Margin="224,0,214,0" Height="300" Text="CoinGecko Asset Tracker&#xD;&#xA;&#xD;&#xA;Version: 1.0.0&#xD;&#xA;Entwickler: Lilith Frahm&#xD;&#xA;Lizenz: MIT License&#xD;&#xA;Kontakt: Lilith.Frahm@outlook.de"/>
                 </TabItem>
             </TabControl>
+            
             <!-- CoinGecko App Logo -->
             <Image Source="pack://application:,,,/Resources/Images/ColorWhite.png" Height="56" Width="150" Canvas.Left="25" Canvas.Top="34"/>
 
