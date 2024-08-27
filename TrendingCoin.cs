@@ -67,4 +67,3 @@ namespace CoinGecko_Asset_Tracker
     }
 
 }
-

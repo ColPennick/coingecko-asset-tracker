@@ -80,7 +80,6 @@
                         <!-- ListBox entry count -->
                         <TextBlock x:Name="OverviewCountTextBlock" Text="000 Einträge" Canvas.Left="634" Canvas.Top="474" FontSize="10" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-
                     </Canvas>
                 </TabItem>
 

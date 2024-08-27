@@ -13,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-
 namespace CoinGecko_Asset_Tracker
 {
     public partial class MainWindow : Window
@@ -93,11 +92,15 @@ namespace CoinGecko_Asset_Tracker
             dataView.Refresh();
         }
 
+        /// <summary>
+        /// Handles the text changed event of the search text box to apply the search filter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplySearchFilter();
         }
-
 
         /// <summary>
         /// Handles the selection changed event of the search criteria combo box to apply the search filter.
@@ -169,7 +172,10 @@ namespace CoinGecko_Asset_Tracker
             UpdateOverviewCount();
         }
 
-
+        /// <summary>
+        /// Retrieves the overview coins from the CoinGecko API asynchronously and returns them as a list of OverviewCoin objects.
+        /// </summary>
+        /// <returns></returns>
         private async Task<List<OverviewCoin>> GetOverviewCoinsAsync()
         {
             var response = await client.GetStringAsync("https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=250&page=1&sparkline=true");
@@ -199,7 +205,6 @@ namespace CoinGecko_Asset_Tracker
             return trendingCoins;
         }
 
-
         /// <summary>
         /// Handles the selection changed event of the tab control to load the trending or overview coins list.
         /// </summary>
@@ -219,7 +224,6 @@ namespace CoinGecko_Asset_Tracker
                 }
             }
         }
-
 
         /// <summary>
         /// Starts the timer to auto update the trending coins list when the auto update checkbox is checked.
